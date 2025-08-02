@@ -94,7 +94,13 @@ A production-ready mobile task management application built with React Native an
    - Enable Firestore Database
    - Enable Authentication (Anonymous)
    - Enable Analytics
-   - Add Firebase config to `src/utils/firebase.js`
+   - Copy `.env.example` to `.env`
+   - Fill in your Firebase config values in `.env`
+   
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Firebase configuration
+   ```
 
 4. **Start the development server**
    ```bash
@@ -108,19 +114,25 @@ A production-ready mobile task management application built with React Native an
 
 ### Firebase Configuration
 
-Create a Firebase project and update `src/utils/firebase.js` with your config:
+Create a Firebase project and configure environment variables:
 
-```javascript
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id",
-  measurementId: "your-measurement-id"
-};
-```
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your Firebase configuration in `.env`:
+   ```env
+   FIREBASE_API_KEY=your-actual-api-key
+   FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   FIREBASE_PROJECT_ID=your-project-id
+   FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+   FIREBASE_APP_ID=your-app-id
+   FIREBASE_MEASUREMENT_ID=your-measurement-id
+   ```
+
+**⚠️ Important**: Never commit your `.env` file to version control. It's already included in `.gitignore`.
 
 ## 📁 Project Structure
 

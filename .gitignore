@@ -18,6 +18,13 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# CRITICAL SECURITY FILES - NEVER COMMIT THESE
+.env
+.env.*
+firebase-config.js
+google-services.json
+GoogleService-Info.plist
+
 # Metro
 .metro-health-check*
 
