@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Project_react_app",
-    "slug": "Project_react_app",
+    "name": "Personal Kanban Dashboard",
+    "slug": "personal-kanban-dashboard",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,17 +13,43 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.personalkanban.dashboard",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "NOTIFICATIONS"
+      ]
     },
+    "notification": {
+      "icon": "./assets/icon.png",
+      "color": "#2196F3"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#2196F3"
+        }
+      ],
+      "expo-dev-client"
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b197bd72-eccb-4d64-82f3-5a9ab0383a03"
+      }
     }
   }
 }
