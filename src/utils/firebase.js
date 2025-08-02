@@ -1,29 +1,56 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+  FIREBASE_MEASUREMENT_ID
+} from '@env';
 // ...existing code...
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY || "your-firebase-api-key",
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN || "your-project.firebaseapp.com",
-  projectId: process.env.FIREBASE_PROJECT_ID || "your-project-id",
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "your-sender-id",
-  appId: process.env.FIREBASE_APP_ID || "your-app-id",
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID || "your-measurement-id"
+  apiKey: FIREBASE_API_KEY || "AIzaSyDLyVWTwejirzBnOVKboZIWWJsS5zywTQs",
+  authDomain: FIREBASE_AUTH_DOMAIN || "task-app-19522.firebaseapp.com",
+  projectId: FIREBASE_PROJECT_ID || "task-app-19522",
+  storageBucket: FIREBASE_STORAGE_BUCKET || "task-app-19522.firebasestorage.app",
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID || "417611991447",
+  appId: FIREBASE_APP_ID || "1:417611991447:web:a8bb5aa9e5318a92ff9cd2",
+  measurementId: FIREBASE_MEASUREMENT_ID || "G-34HR4GQF3S"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
 const db = getFirestore(app);
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});
+
+let auth;
+try {
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  });
+} catch (error) {
+  // If auth is already initialized, get the existing instance
+  if (error.code === 'auth/already-initialized') {
+    const { getAuth } = require('firebase/auth');
+    auth = getAuth(app);
+  } else {
+    throw error;
+  }
+}
 
 // Initialize Analytics (with support check for React Native)
 let analytics = null;
